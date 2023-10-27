@@ -1,52 +1,62 @@
 #include <iostream>
-#include <random>
-#include <windows.h>
+#include <Windows.h>
+
+const int MaxX = 10;
+const int MaxY = 10;
 using namespace std;
+
+
+
+void ClearScrean(const bool IsClearing) 
+{
+	if (IsClearing)
+	{
+		system("cls");
+	}
+}
+
+bool IsEndLocation(const int LocationX, const int LocationY)
+{
+	if ((LocationX == MaxX-1) || (LocationY == MaxY-1) || (LocationX == 0) || (LocationY == 0))
+	{
+		return true;
+	}
+	return false;
+}
+
+
+void Render()
+{
+	char Map[MaxY][MaxX] = { ' ', };
+
+
+	for (int Y = 0; Y < MaxY; Y++)
+	{
+		for (int X = 0; X < MaxX; X++)
+		{
+
+			if (IsEndLocation(X, Y))
+			{
+				Map[Y][X] = '*';
+			}
+			else
+			{
+				Map[Y][X] = ' ';
+			}
+			cout << Map[Y][X];
+		}
+		cout << endl;
+	}
+}
+
 
 int main()
 {
-	//random함수 사용시
-	int Num1 = 0;
-	int Array[4] = { 0,0,0,0 };
-	for (int i = 0; i < 4; i++)
-	{
-		Num1 = 0;
-		srand(time(NULL)*i);
-		Num1 = (rand() % 52);
-		while (Num1 != Array[i])
-		{
-			Num1 = 0;
-			srand(time(NULL) * i);
-			Num1 = (rand() % 52);
-			Array[i] = Num1;
-		}
-		cout << Array[i]<<endl;
-	}
-	cout << endl;
-
-
-	//사용하지 않고 표준편차를 이용.
-	//현재 문제가 있음.
-	/*
-	int Array2[4] = { 0,0,0,0 };
-	int Num2 = 0;
-	uniform_int_distribution<int> NumDis(0, 52);
-	random_device rd;
-	mt19937 gen(rd());
-	for (int i = 0; i < 4; i++)
-	{
-		Num2 = NumDis(gen);
-		while (Num2 != Array2[i])
-		{
-			Num2 = NumDis(gen);
-			Array2[i] = Num2;
-		}
-		cout << Array2[i] << endl;
-
-
-	}
-
-	*/
+	//Init();
+	
+	Render();
 
 	return 0;
 }
+//
+
